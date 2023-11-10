@@ -4,11 +4,11 @@
 ハンドサインアプリ製作に使用
 
 ## Branch
-# main
+### main
 最終成果物
-# App
+### App
 Webappのブランチ
-# ImageRecog
+### ImageRecog
 画像認識のブランチ
 
 ## 開発者
