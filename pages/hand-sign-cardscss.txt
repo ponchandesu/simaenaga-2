@@ -1,0 +1,402 @@
+.hand-sign-cards-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  table-layout: fixed;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+.hand-sign-cards-hand-sign-cards {
+  width: 100%;
+  height: auto;
+  display: flex;
+  table-layout: fixed;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.hand-sign-cards-title {
+  height: 96px;
+  width: 100%;
+  gap: auto;
+  display: flex;
+  padding: 0px 60px 0px 40px;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(160, 160, 160, 1);
+  border-style: solid;
+  border-width: 2px;
+  border-bottom-width: 0px;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 1);
+}
+.hand-sign-cards-user-data {
+  gap: 28px;
+  height: 100%;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hand-sign-cards-icon {
+  width: 66px;
+  height: 66px;
+}
+.hand-sign-cards-user-name {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.hand-sign-cards-text {
+  color: rgba(0, 0, 0, 1);
+  height: auto;
+  font-size: 36px;
+  font-style: Bold;
+  text-align: center;
+  font-family: Noto Sans JP;
+  font-weight: 700;
+  line-height: 150%;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.hand-sign-cards-date {
+  height: 100%;
+  width: auto;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  justify-content: center;
+}
+.hand-sign-cards-text02 {
+  color: rgba(0, 0, 0, 1);
+  height: auto;
+  font-size: 36px;
+  font-style: Bold;
+  text-align: center;
+  font-family: Noto Sans JP;
+  font-weight: 700;
+  line-height: 150%;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.hand-sign-cards-contents-field {
+  gap: auto;
+  height: auto;
+  width: 100%;
+  display: flex;
+  padding-left: 40px;
+  padding-right: 40px;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(160, 160, 160, 1);
+  border-style: solid;
+  border-width: 2px;
+  justify-content: space-evenly;
+  flex-direction: row;
+  background-color: rgba(255, 255, 255, 1);
+}
+.hand-sign-cards-image-field {
+  width: 20%;
+  height: 100%;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.hand-sign-cards-image {
+  width: 100%;
+  height: width;
+}
+.hand-sign-cards-contents {
+  gap: 16px;
+  width: 60%;
+  height: 100%;
+  display: flex;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  padding-left: 40px;
+  flex-grow: 0;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  flex-direction: column;
+  position: relative;
+}
+.hand-sign-cards-hand-sign-name {
+  display: flex;
+  width: 100%;
+  height: auto;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.hand-sign-cards-text04 {
+  color: rgba(0, 0, 0, 1);
+  height: auto;
+  flex-grow: 1;
+  font-size: 36px;
+  font-style: Bold;
+  text-align: left;
+  font-family: Noto Sans JP;
+  font-weight: 700;
+  line-height: 150%;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.hand-sign-cards-text-field {
+  gap: 16px;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+}
+.hand-sign-cards-detail {
+  display: flex;
+  width: auto;
+  height: auto;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.hand-sign-cards-text06 {
+  color: rgba(0, 0, 0, 1);
+  width: 30px;
+  height: auto;
+  font-size: 24px;
+  align-self: stretch;
+  font-style: Medium;
+  text-align: left;
+  font-family: Noto Sans JP;
+  font-weight: 500;
+  line-height: 150%;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.hand-sign-cards-text08 {
+  color: rgba(0, 0, 0, 1);
+  height: auto;
+  flex-grow: 1;
+  font-size: 24px;
+  font-style: Medium;
+  text-align: left;
+  font-family: Noto Sans JP;
+  font-weight: 500;
+  line-height: 150%;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.hand-sign-cards-hash-tags {
+  gap: 16px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.hand-sign-cards-text10 {
+  color: rgba(0, 0, 0, 1);
+  width: 15px;
+  height: auto;
+  font-size: 24px;
+  font-style: Medium;
+  text-align: left;
+  font-family: Noto Sans JP;
+  font-weight: 500;
+  line-height: 150%;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.hand-sign-cards-hash-tag {
+  display: flex;
+  width: auto;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  border-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+}
+.hand-sign-cards-text12 {
+  color: rgba(61, 119, 86, 1);
+  height: auto;
+  font-size: 24px;
+  font-style: Medium;
+  text-align: left;
+  font-family: Noto Sans JP;
+  font-weight: 500;
+  line-height: 150%;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.hand-sign-cards-hash-tag-name {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.hand-sign-cards-text14 {
+  color: rgba(0, 0, 0, 1);
+  height: auto;
+  font-size: 24px;
+  align-self: stretch;
+  font-style: Medium;
+  text-align: left;
+  font-family: Noto Sans JP;
+  font-weight: 500;
+  line-height: 150%;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.hand-sign-cards-right {
+  gap: auto;
+  width: 20%;
+  height: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  position: relative;
+  justify-content: space-evenly;
+}
+.hand-sign-cards-pan-kuzu {
+  gap: 8px;
+  width: 100%;
+  height: auto;
+  padding-bottom: 50%;
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hand-sign-cards-dairy {
+  display: flex;
+  width: auto;
+  height: 100%;
+  align-self: stretch;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+  justify-content: center;
+}
+.hand-sign-cards-text32 {
+  color: rgba(61, 119, 86, 1);
+  width: auto;
+  height: 100%;
+  font-size: 24px;
+  font-style: Medium;
+  text-align: left;
+  font-family: Noto Sans JP;
+  font-weight: 500;
+  line-height: 150%;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.hand-sign-cards-arrowright {
+  width: 18px;
+  height: 21px;
+}
+.hand-sign-cards-greeting {
+  display: flex;
+  width: auto;
+  height: 100%;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+}
+.hand-sign-cards-text34 {
+  color: rgba(61, 119, 86, 1);
+  height: 100%;
+  font-size: 24px;
+  font-style: Medium;
+  text-align: left;
+  font-family: Noto Sans JP;
+  font-weight: 500;
+  line-height: 150%;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.hand-sign-cards-favorite-count {
+  gap: 8px;
+  height: 60px;
+  padding-top: 50%;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-end;
+  flex-shrink: 0;
+  position: relative;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.hand-sign-cards-favorite {
+  display: flex;
+  position: relative;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.hand-sign-cards-Heart {
+  width: 50px;
+  height: 50px;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+}
+.hand-sign-cards-Heart:before{
+  content: url("heart.svg");
+}
+.hand-sign-cards-activeHeart{
+  display: none;
+}
+.hand-sign-cards-activeHeart:checked+.hand-sign-cards-Heart {
+  width: 53.5px;
+  height: 50px;
+  margin-top: -5.5px;
+  margin-left: -1px;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+}
+.hand-sign-cards-activeHeart:checked+.hand-sign-cards-Heart:before {
+  content: url("activeHeart.svg");
+}
+.hand-sign-cards-text36 {
+  height: 60px;
+  width: auto;
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  justify-content: center;
+}
+.hand-sign-cards-text37 {
+  color: rgba(0, 0, 0, 1);
+  width: auto;
+  height: auto;
+  font-size: 36px;
+  font-style: Bold;
+  text-align: center;
+  font-family: Noto Sans JP;
+  font-weight: 700;
+  line-height: 150%;
+  font-stretch: normal;
+  text-decoration: none;
+}
