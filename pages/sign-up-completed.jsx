@@ -1,12 +1,15 @@
-import React, {useEffect , useState } from 'react'
+import React, { useEffect } from 'react'
 import { Helmet ,HelmetProvider} from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
-import axios from "axios"
-
+import { server } from '../App';
 import './sign-up-completed.css'
 
-const SignUpCompleted = (props) => {
-  const navigate=useNavigate()
+function SignUpCompleted () {
+  const navigate=useNavigate();
+  useEffect(() => {
+    const storedJwt = document.cookie;
+    console.log("token=",storedJwt);
+  }, []);
   return (
     <HelmetProvider>
       <div className="sign-up-completed-container">
@@ -26,7 +29,7 @@ const SignUpCompleted = (props) => {
               className="sign-up-completed-image1"
             />
             <span className="sign-up-completed-text2">
-              <span>しまコネクトへようこそ！</span>
+              <span>コンテンツ名へようこそ！</span>
             </span>
             <div className="sign-up-completed-button-field">
               <button className="sign-up-completed-log-in-button" onClick={() => navigate('/main-screen')}>
@@ -42,7 +45,7 @@ const SignUpCompleted = (props) => {
             </div>
           </div>
         </div>
-      </div>
+      </div>  
     </HelmetProvider>
   )
 }

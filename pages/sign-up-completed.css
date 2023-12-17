@@ -16,10 +16,10 @@
   background-color: rgba(255, 255, 255, 1);
 }
 .sign-up-completed-main {
-  gap: 64px;
+  gap: 12px;
   width: 100%;
   display: flex;
-  padding: 100px 0;
+  padding: 40px 0;
   align-items: center;
   flex-shrink: 0;
   flex-direction: column;
@@ -35,7 +35,7 @@
   color: rgba(0, 0, 0, 1);
   height: auto;
   flex-grow: 1;
-  font-size: 110px;
+  font-size: 80px;
   font-style: Bold;
   text-align: center;
   font-family: Noto Sans JP;
@@ -45,14 +45,15 @@
   text-decoration: none;
 }
 .sign-up-completed-image1 {
-  width: 686px;
-  height: 442px;
+  width: 380px;
+  height: 245px;
+  padding-bottom: 8px;
 }
 .sign-up-completed-text2 {
   color: rgba(0, 0, 0, 1);
-  width: 1440px;
+  width: 100%;
   height: auto;
-  font-size: 36px;
+  font-size: 24px;
   font-style: Medium;
   text-align: center;
   font-family: Noto Sans JP;
@@ -64,7 +65,7 @@
 .sign-up-completed-button-field {
   gap: 42px;
   display: flex;
-  padding: 0 240px;
+  padding: 0 300px;
   align-self: stretch;
   align-items: flex-start;
   flex-direction: column;
@@ -87,7 +88,7 @@
   color: rgba(0, 0, 0, 1);
   height: auto;
   flex-grow: 1;
-  font-size: 48px;
+  font-size: 40px;
   font-style: Bold;
   text-align: center;
   font-family: Noto Sans JP;
@@ -111,7 +112,7 @@
   color: rgba(0, 0, 0, 1);
   height: auto;
   flex-grow: 1;
-  font-size: 48px;
+  font-size: 40px;
   font-style: Bold;
   text-align: center;
   font-family: Noto Sans JP;

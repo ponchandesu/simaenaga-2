@@ -1,11 +1,10 @@
-import React, {useEffect , useState } from 'react'
+import React from 'react'
+
 import { Helmet ,HelmetProvider} from 'react-helmet-async'
-import { useNavigate } from 'react-router-dom'
-import axios from "axios"
 
 import './not-found.css'
 
-const NotFound = (props) => {
+function NotFound() {
   return (
     <HelmetProvider>
       <div className="not-found-container">

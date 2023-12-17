@@ -16,10 +16,10 @@
   background-color: rgba(255, 255, 255, 1);
 }
 .registration-for-use-main {
-  gap: 64px;
+  gap: 8px;
   width: 100%;
   display: flex;
-  padding: 100px 0;
+  padding: 40px 0;
   align-items: center;
   flex-shrink: 0;
   flex-direction: column;
@@ -35,7 +35,7 @@
   color: rgba(0, 0, 0, 1);
   height: auto;
   flex-grow: 1;
-  font-size: 110px;
+  font-size: 80px;
   font-style: Bold;
   text-align: center;
   font-family: Noto Sans JP;
@@ -45,13 +45,14 @@
   text-decoration: none;
 }
 .registration-for-use-image1 {
-  width: 597px;
-  height: 387px;
+  width: 380px;
+  height: 245px;
+  padding-bottom: 8px;
 }
 .registration-for-use-button-field {
   gap: 42px;
   display: flex;
-  padding: 0 240px;
+  padding: 0 300px;
   align-self: stretch;
   align-items: flex-start;
   flex-direction: column;
@@ -74,7 +75,7 @@
   color: rgba(0, 0, 0, 1);
   height: auto;
   flex-grow: 1;
-  font-size: 48px;
+  font-size: 40px;
   font-style: Bold;
   text-align: center;
   font-family: Noto Sans JP;
@@ -101,7 +102,7 @@
   color: rgba(0, 0, 0, 1);
   height: auto;
   flex-grow: 1;
-  font-size: 48px;
+  font-size: 40px;
   font-style: Bold;
   text-align: center;
   font-family: Noto Sans JP;
@@ -125,7 +126,7 @@
   color: rgba(0, 0, 0, 1);
   height: auto;
   flex-grow: 1;
-  font-size: 48px;
+  font-size: 40px;
   font-style: Bold;
   text-align: center;
   font-family: Noto Sans JP;

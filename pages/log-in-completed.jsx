@@ -1,12 +1,16 @@
-import React, {useEffect , useState } from 'react'
+import React, { useEffect } from 'react'
 import { Helmet ,HelmetProvider} from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
-import axios from "axios"
-
+import { server } from '../App';
 import './log-in-completed.css'
 
-const LogInCompleted = (props) => {
-  const navigate=useNavigate()
+function LogInCompleted(){
+  const navigate=useNavigate();
+
+  useEffect(() => {
+    const storedJwt = document.cookie;
+    console.log("token=",storedJwt);
+  }, []);
   return (
     <HelmetProvider>
       <div className="log-in-completed-container">

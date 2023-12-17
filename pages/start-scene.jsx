@@ -1,14 +1,17 @@
-import React, {useEffect , useState } from 'react'
+import React, { useEffect } from 'react'
 import { Helmet ,HelmetProvider} from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
-
+import { server } from '../App';
 import './start-scene.css'
-
-const StartScene = (props) => {
-  const navigate=useNavigate()
+export default function StartScene () {
+  useEffect(() => {
+    const storedJwt = document.cookie;
+    console.log(storedJwt);
+  }, []);
+  const navigate= useNavigate();
   return (
-    <HelmetProvider>
-      <div className="start-scene-container">
+    <div className="start-scene-container">
+      <HelmetProvider>
         <Helmet>
           <title>しまコネクト</title>
         </Helmet>
@@ -33,9 +36,7 @@ const StartScene = (props) => {
             </div>
           </div>
         </div>
-      </div>
-    </HelmetProvider>
+      </HelmetProvider>
+    </div>
   )
 }
-
-export default StartScene;

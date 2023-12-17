@@ -2,11 +2,84 @@ import React, {useEffect , useState } from 'react'
 import { Helmet ,HelmetProvider} from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
 import axios from "axios"
-
+import { server } from '../App';
 import './internet-forum.css'
 
-const InternetForumPopu = (props) => {
+function InternetForumPopu() {
+
+  async function getImage(image){
+    const res = await axios.post('forum-image',image);
+    return res;
+  }
   const navigate=useNavigate()
+  const [list,setList] = useState([])
+  useEffect(() => {
+
+    async function board(){
+      try {
+        const res = await axios.get(server+"/forum-popu"); 
+        setList(res.data); 
+        console.log(res.data); 
+      } catch (error) {
+        console.error(error); 
+      }
+    }
+    board();
+    
+    // オーバレイを開閉する関数
+    const overlay = document.getElementById('sub-menu');
+    function overlayToggle() {
+      overlay.classList.toggle('submenu-on');
+    }
+
+    // 指定した要素に対して上記関数を実行するクリックイベントを設定
+    const clickArea = document.getElementsByClassName('main-screen-hambirger-menu');
+    for (let i = 0; i < clickArea.length; i++) {
+      clickArea[i].addEventListener('click', overlayToggle, false);
+    }
+
+    // イベントに対してバブリングを停止
+    function stopEvent(event) {
+      event.stopPropagation();
+    }
+    const overlayInner = document.getElementById('sub-menu-main');
+    overlayInner.addEventListener('click', stopEvent, false);
+
+    // cleanup 関数でイベントリスナーを削除
+    return () => {
+      for (let i = 0; i < clickArea.length; i++) {
+        clickArea[i].removeEventListener('click', overlayToggle, false);
+      }
+      overlayInner.removeEventListener('click', stopEvent, false);
+    };
+  }, []); // 第二引数に空の配列を渡すことで、マウント時のみ実行
+
+  // close-btn ボタンのクリックイベントハンドラを追加
+  const handleCloseBtnClick = () => {
+    const overlay = document.getElementById('sub-menu');
+    overlay.classList.remove('submenu-on');
+  };
+
+  //サブメニューのプロフィールクリックイベント
+  const handleProfileBtnClick = () => {
+    navigate('/profile');
+  }
+
+  //サブメニューのハンドサインクリックイベント
+  const handleHandsignBtnClick = () => {
+    navigate('/hand-sign-list');
+  }
+
+  //サブメニューのログアウトクリックイベント
+  const handleLogoutBtnClick = () => {
+    navigate('/log-out');
+  }
+
+  //サブメニューのサインアウトクリックイベント
+  const handleSignoutBtnClick = () => {
+    navigate('/account-delete');
+  }
+
   return (
     <HelmetProvider>
       <div className="internet-forum-container">
@@ -35,17 +108,81 @@ const InternetForumPopu = (props) => {
                   className="internet-forum-image1"
                 />
               </button>
-              <div className="internet-forum-hambirger-menu">
-                <div className="internet-forum-stacked">
+              <button id="open-btn" className="main-screen-hambirger-menu" type="button">
+                <div className="main-screen-stacked">
                   <img
                     src="/images/hambirger.svg"
                     alt="Ham"
-                    className="internet-forum-menu"
+                    className="main-screen-menu"
                   />
-                  <span className="internet-forum-text3">
+                  <span className="main-screen-text">
                     <span>メニュー</span>
                   </span>
                 </div>
+              </button>
+              <div id="sub-menu" className="sub-menu-sub-menu">
+                <div id="sub-menu-main">
+                  <div className="sub-menu-sub-menu1">
+                    <span className="sub-menu-text">
+                      <span>  サブメニュー</span>
+                    </span>
+                  </div>
+                </div>
+                <button id="close-btn" className="sub-menu-close-button" type="button" onClick={handleCloseBtnClick}>
+                  <img
+                    src="/images/closeIcon.svg"
+                    alt="close"
+                    className="sub-menu-close"
+                  />
+                </button>
+                <button className="sub-menu-profile" onClick={handleProfileBtnClick}>
+                  <div className="sub-menu-me">
+                    <img
+                      src="/images/profileIcon.svg"
+                      alt="profileIcon"
+                      className="sub-menu-union"
+                    />
+                  </div>
+                  <span className="sub-menu-text02">
+                    <span>プロフィール</span>
+                  </span>
+                </button>
+                <button className="sub-menu-hand-sign-list" onClick={handleHandsignBtnClick}>
+                  <div className="sub-menu-fillablecard">
+                    <img
+                      src="/images/handSignIcon.svg"
+                      alt="handSignIcon"
+                      className="sub-menu-union1"
+                    />
+                  </div>
+                  <span className="sub-menu-text04">
+                    <span>ハンドサインリスト</span>
+                  </span>
+                </button>
+                <button className="sub-menu-log-out" onClick={handleLogoutBtnClick}>
+                  <div className="sub-menu-update">
+                    <img
+                      src="/images/logOutIcon.svg"
+                      alt="logOutIcon"
+                      className="sub-menu-union2"
+                    />
+                  </div>
+                  <span className="sub-menu-text06">
+                    <span>ログアウト</span>
+                  </span>
+                </button>
+                <button className="sub-menu-sign-out" onClick={handleSignoutBtnClick}>
+                  <div className="sub-menu-departure">
+                    <img
+                      src="/images/signOutIcon.svg"
+                      alt="signOutIcon"
+                      className="sub-menu-union3"
+                    />
+                  </div>
+                  <span className="sub-menu-text08">
+                    <span>退会手続き</span>
+                  </span>
+                </button>
               </div>
             </div>
           </div>
@@ -69,6 +206,8 @@ const InternetForumPopu = (props) => {
               </div>
               <div className="internet-forum-cards-field">
                 <div className="internet-forum-cards">
+
+                  {list.map((card)=>(
                   <div className="hand-sign-cards-hand-sign-cards">
                     <div className="hand-sign-cards-title">
                       <div className="hand-sign-cards-user-data">
@@ -76,14 +215,15 @@ const InternetForumPopu = (props) => {
                           src="/images/userIcon.png"
                           alt="UserIcon"
                           className="hand-sign-cards-icon"
+                          id={card.userId}
                         />
                         <div className="hand-sign-cards-user-name">
-                          <span className="hand-sign-cards-text">あかり</span>
+                          <span className="hand-sign-cards-text">{card.userId}</span>
                         </div>
                       </div>
                       <div className="hand-sign-cards-date">
                         <span className="hand-sign-cards-text02">
-                          <span>2023-09-04</span>
+                          <span>{card.time}</span>
                         </span>
                       </div>
                     </div>
@@ -98,39 +238,34 @@ const InternetForumPopu = (props) => {
                       <div className="hand-sign-cards-contents">
                         <div className="hand-sign-cards-hand-sign-name">
                           <span className="hand-sign-cards-text04">
-                            <span>こんにちは</span>
+                            <span>{card.title}</span>
                           </span>
                         </div>
                         <div className="hand-sign-cards-text-field">
                           <div className="hand-sign-cards-detail">
                             <span className="hand-sign-cards-text08">
-                              <span>こんにちはを作ってみました</span>
+                              <span>{card.body}</span>
                             </span>
                           </div>
                           <div className="hand-sign-cards-hash-tags">
                             <button className="hand-sign-cards-hash-tag"  onClick={() => navigate('/internet-forum-popu')}>
-                              <span className="hand-sign-cards-text12">
-                                <span>#こんにちは</span>
+                              <span className="hand-sign-cards-text12"> 
+                                <span>{card.hashtag1 != null&& '#'+card.hashtag1}</span>
                               </span>
                             </button>
                             <button className="hand-sign-cards-hash-tag"  onClick={() => navigate('/internet-forum-popu')}>
                               <span className="hand-sign-cards-text12">
-                                <span>#やっほー</span>
+                                <span>{card.hashtag2 != null&& '#'+card.hashtag2}</span>
                               </span>
                             </button>
                             <button className="hand-sign-cards-hash-tag"  onClick={() => navigate('/internet-forum-popu')}>
                               <span className="hand-sign-cards-text12">
-                                <span>#駄作</span>
+                                <span>{card.hashtag3 != null&& '#'+card.hashtag3}</span>
                               </span>
                             </button>
                             <button className="hand-sign-cards-hash-tag"  onClick={() => navigate('/internet-forum-popu')}>
                               <span className="hand-sign-cards-text12">
-                                <span>#初心者</span>
-                              </span>
-                            </button>
-                            <button className="hand-sign-cards-hash-tag"  onClick={() => navigate('/internet-forum-popu')}>
-                              <span className="hand-sign-cards-text12">
-                                <span>#初投稿</span>
+                                <span>{card.hashtag4 != null&& '#'+card.hashtag4}</span>
                               </span>
                             </button>
                           </div>
@@ -156,12 +291,14 @@ const InternetForumPopu = (props) => {
                         </div>
                         <div className="hand-sign-cards-favorite-count">
                           <div className="hand-sign-cards-favorite">
-                            <input type="checkbox" id="heart01"
+                            <input 
+                              type="checkbox" 
+                              id="heart01"
                               src="/images/activeHeart.svg"
                               alt="activeHeart"
                               className="hand-sign-cards-activeHeart"
                             />
-                            <label for="heart01"
+                            <label htmlFor="heart01"
                               src="/images/heart.svg"
                               alt="heart"
                               className="hand-sign-cards-Heart"
@@ -169,33 +306,15 @@ const InternetForumPopu = (props) => {
                           </div>
                           <div className="hand-sign-cards-text36">
                             <span className="hand-sign-cards-text37">
-                              <span>130</span>
+                              <span>{card.fav}</span>
                             </span>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <img
-                    src="/images/cardAlt.png"
-                    alt="CardAlt"
-                    className="internet-forum-rectangle11"
-                  />
-                  <img
-                    src="/images/cardAlt.png"
-                    alt="CardAlt"
-                    className="internet-forum-rectangle11"
-                  />
-                  <img
-                    src="/images/cardAlt.png"
-                    alt="CardAlt"
-                    className="internet-forum-rectangle11"
-                  />
-                  <img
-                    src="/images/cardAlt.png"
-                    alt="CardAlt"
-                    className="internet-forum-rectangle11"
-                  />
+                  ))}     
+                  
                 </div>
               </div>
             </div>

@@ -1,11 +1,10 @@
-import React, {useEffect , useState } from 'react'
-import { Helmet ,HelmetProvider} from 'react-helmet-async'
+import React from 'react'
+import { Helmet,HelmetProvider } from 'react-helmet-async'
 import { useNavigate } from 'react-router-dom'
-import axios from "axios"
-
+import { server } from '../App';
 import './registration-for-use.css'
 
-const RegistrationForUse = (props) => {
+function RegistrationForUse () {
   const navigate=useNavigate()
   return (
     <HelmetProvider>

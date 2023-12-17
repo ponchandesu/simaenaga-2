@@ -1,13 +1,20 @@
 import React, {useEffect , useState } from 'react'
 import { Helmet ,HelmetProvider} from 'react-helmet-async'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from "axios"
 import { server } from '../App';
-import './main-screen.css'
+import './log-out.css'
 
-const MainScreen = (props) => {
-  const navigate=useNavigate()
+const LogOut = (props) => {
+  const navigate=useNavigate();
+  const handleCookie=()=>{
+    const storedJwt = document.cookie;
+    document.cookie = '${storedJWT};path=/;max-age=7200';
+  }
   useEffect(() => {
+
+    const storedJwt = document.cookie;
+    console.log("token=",storedJwt);
     
     // オーバレイを開閉する関数
     const overlay = document.getElementById('sub-menu');
@@ -16,7 +23,7 @@ const MainScreen = (props) => {
     }
 
     // 指定した要素に対して上記関数を実行するクリックイベントを設定
-    const clickArea = document.getElementsByClassName('main-screen-hambirger-menu-mine');
+    const clickArea = document.getElementsByClassName('main-screen-hambirger-menu');
     for (let i = 0; i < clickArea.length; i++) {
       clickArea[i].addEventListener('click', overlayToggle, false);
     }
@@ -62,24 +69,35 @@ const MainScreen = (props) => {
   const handleSignoutBtnClick = () => {
     navigate('/account-delete');
   }
-
   return (
     <HelmetProvider>
-      <div className="main-screen-container">
+      <div className="log-out-container">
         <Helmet>
           <title>しまコネクト</title>
         </Helmet>
-        <div className="main-screen-main-screen">
-          <div className="main-screen-header">
-            <div className="main-screen-bar-text">
-              <button className="main-screen-logo" onClick={() => navigate('/main-screen')}>
+        <div className="log-out-log-out">
+          <div className="log-out-header">
+            <div className="log-out-bar-text">
+              <button className="log-out-logo" onClick={() => navigate('/main-screen')}>
                 <img
                   src="/images/logo.png"
                   alt="Logo"
-                  className="main-screen-image"
+                  className="log-out-image"
                 />
               </button>
-              <button id="open-btn" className="main-screen-hambirger-menu-mine" type="button">
+              <div className="log-out-page-title">
+                <div className="log-out-text">
+                  <span className="log-out-text1">
+                    <span>ログアウト</span>
+                  </span>
+                </div>
+                <img
+                  src="/images/logOutIcon.svg"
+                  alt="logOutIcon"
+                  className="log-out-union3"
+                />
+              </div>
+              <button id="open-btn" className="main-screen-hambirger-menu" type="button">
                 <div className="main-screen-stacked">
                   <img
                     src="/images/hambirger.svg"
@@ -157,35 +175,29 @@ const MainScreen = (props) => {
               </div>
             </div>
           </div>
-          <div className="main-screen-main">
-            <div className="main-screen-button">
-              <button className="main-screen-internet-forum-button" onClick={() => navigate('/internet-forum-popu')}>
-                <div className="main-screen-inside">
-                  <div className="main-screen-text2">
-                    <span className="main-screen-text3">
-                      <span>掲示板</span>
-                    </span>
-                  </div>
-                  <img
-                    src="/images/keijibanImage.png"
-                    alt="Keijiban"
-                    className="main-screen-image1"
-                  />
-                </div>
-              </button>
-              <button className="main-screen-tool-button">
-                <div className="main-screen-inside1">
-                  <div className="main-screen-text5">
-                    <span className="main-screen-text6">
-                      <span>お話しツール</span>
-                    </span>
-                  </div>
-                  <img
-                    src="/images/toolImage.png"
-                    alt="Tool"
-                    className="main-screen-image11"
-                  />
-                </div>
+          <div className="log-out-main">
+            <img
+              src="/images/logOut.png"
+              alt="logOut"
+              className="log-out-image2"
+            />
+            <div className="log-out-text10">
+              <div className="log-out-main-text">
+                <span className="log-out-text11">
+                  <span>本当にログアウトしますか？</span>
+                </span>
+              </div>
+              <div className="log-out-sub-text">
+                <span className="log-out-text13">
+                  <span>アカウントは消えません。</span>
+                </span>
+              </div>
+            </div>
+            <div className="log-out-button-field">
+              <button className="log-out-log-in-button" onClick={() => {navigate('/');handleCookie();}}>
+                <span className="log-out-text4">
+                  <span>ログアウトする</span>
+                </span>
               </button>
             </div>
           </div>
@@ -195,4 +207,4 @@ const MainScreen = (props) => {
   )
 }
 
-export default MainScreen
+export default LogOut

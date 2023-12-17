@@ -1,32 +1,111 @@
 import React, {useEffect , useState } from 'react'
 import { Helmet ,HelmetProvider} from 'react-helmet-async'
-import { useNavigate } from 'react-router-dom'
+import { Form, useNavigate } from 'react-router-dom'
+import { useFormState, useFormDispatch } from './formContext';
 import axios from "axios"
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-
 import './add-hand-sign.css'
+import { server } from '../App';
 
-const AddHandSign = (props) => {
-  const initialValues = { handSignName:"", handSignVideo:"", handSignImage:"", category:"", detail:"", hashTag1:"", hashTag2:"", hashTag3:"", hashTag4:""};
-  const [formValues, setFormValues] = useState(initialValues);
+function AddHandSign (){
+  const { formValues } = useFormState();
+  const dispatch = useFormDispatch();
+
   const [formErros, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);   
+  const [isSubmit, setIsSubmit] = useState(false);  
+  const [video, setVideo] = useState();
+  const [image, setImage] = useState();
   const navigate=useNavigate();
 
+
   const handleChange = (e) =>{
+    console.log(image);
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]:value});
+    dispatch({ type: 'UPDATE_FORM_VALUES', payload: { [name]: value } });
     console.log('Change:',formValues);
   }
 
-  const handleSubmit = async(e) =>{
-    e.preventDefault();
-    // setFormErrors(validate(formValues));
-    const res = await axios.post('http://localhost:5000/hands', formValues)
-    setIsSubmit(true);
-    console.log('Submit:',formValues);
+  useEffect(() => {
+    // オーバレイを開閉する関数
+    const overlay = document.getElementById('sub-menu');
+    function overlayToggle() {
+      overlay.classList.toggle('submenu-on');
+    }
+    // 指定した要素に対して上記関数を実行するクリックイベントを設定
+    const clickArea = document.getElementsByClassName('main-screen-hambirger-menu');
+    for (let i = 0; i < clickArea.length; i++) {
+      clickArea[i].addEventListener('click', overlayToggle, false);
+    }
+
+    // イベントに対してバブリングを停止
+    function stopEvent(event) {
+      event.stopPropagation();
+    }
+    const overlayInner = document.getElementById('sub-menu-main');
+    overlayInner.addEventListener('click', stopEvent, false);
+
+    // cleanup 関数でイベントリスナーを削除
+    return () => {
+      for (let i = 0; i < clickArea.length; i++) {
+        clickArea[i].removeEventListener('click', overlayToggle, false);
+      }
+      overlayInner.removeEventListener('click', stopEvent, false);
+    };
+  }, []); // 第二引数に空の配列を渡すことで、マウント時のみ実行
+
+  // close-btn ボタンのクリックイベントハンドラを追加
+  const handleCloseBtnClick = () => {
+    const overlay = document.getElementById('sub-menu');
+    overlay.classList.remove('submenu-on');
   };
+
+  //サブメニューのプロフィールクリックイベント
+  const handleProfileBtnClick = () => {
+    navigate('/profile');
+  }
+
+  //サブメニューのハンドサインクリックイベント
+  const handleHandsignBtnClick = () => {
+    navigate('/hand-sign-list');
+  }
+
+  //サブメニューのログアウトクリックイベント
+  const handleLogoutBtnClick = () => {
+    navigate('/log-out');
+  }
+
+  //サブメニューのサインアウトクリックイベント
+  const handleSignoutBtnClick = () => {
+    navigate('/account-delete');
+  }
+
+  const handleSubmit = async (e) => {
+    if(formValues.handSignName!=null && formValues.category!=null){
+      e.preventDefault();
+      console.log();
+      try {
+        const file = new FormData();
+
+        file.append("image",image);
+        file.append("video",video);
+        Object.keys(formValues).forEach(key => {
+          file.append(key, formValues[key]);
+        });
+        file.append("token",document.cookie);
+        axios.post(server+"/hand",file,{
+          headers:{
+            'content-type': 'multipart/form-data',
+          },
+        })
+        .then(respons =>{
+          console.log(respons);
+        })
+      }catch(err){
+        console.log("失敗");
+      }
+    }
+  };
+  
+  
 
   useEffect(() => {
     console.log(formErros);
@@ -36,6 +115,84 @@ const AddHandSign = (props) => {
     } else {
     }
   }, [formErros]);
+
+
+  //詳細の入力制限
+  const handleDetailChange = (e) => {
+    const DETAIL_MAX_LENGTH = 150;
+    const { value } = e.target;
+
+    // 最大文字数を超えた場合は入力を制限
+    if (value.length > DETAIL_MAX_LENGTH) {
+      e.target.value = value.slice(0, DETAIL_MAX_LENGTH);
+    }
+
+    // フォームの状態を更新
+    dispatch({ type: 'UPDATE_FORM_VALUES', payload: { detail: e.target.value } });
+  };
+
+  // ハッシュタグ1の入力制限
+  const handleHashTag1Change = (e) => {
+    const HASHTAG_MAX_LENGTH = 20;
+    const { value } = e.target;
+
+    // 最大文字数を超えた場合は入力を制限
+    if (value.length > HASHTAG_MAX_LENGTH) {
+      e.target.value = value.slice(0, HASHTAG_MAX_LENGTH);
+    }
+
+    // フォームの状態を更新
+    dispatch({ type: 'UPDATE_FORM_VALUES', payload: { hashtag1: e.target.value } });
+  };
+
+  // ハッシュタグ2の入力制限
+  const handleHashTag2Change = (e) => {
+    const HASHTAG_MAX_LENGTH = 20;
+    const { value } = e.target;
+
+    // 最大文字数を超えた場合は入力を制限
+    if (value.length > HASHTAG_MAX_LENGTH) {
+      e.target.value = value.slice(0, HASHTAG_MAX_LENGTH);
+    }
+
+    // フォームの状態を更新
+    dispatch({ type: 'UPDATE_FORM_VALUES', payload: { hashtag2: e.target.value } });
+  };
+
+  // ハッシュタグ3の入力制限
+  const handleHashTag3Change = (e) => {
+    const HASHTAG_MAX_LENGTH = 20;
+    const { value } = e.target;
+
+    // 最大文字数を超えた場合は入力を制限
+    if (value.length > HASHTAG_MAX_LENGTH) {
+      e.target.value = value.slice(0, HASHTAG_MAX_LENGTH);
+    }
+
+    // フォームの状態を更新
+    dispatch({ type: 'UPDATE_FORM_VALUES', payload: { hashtag3: e.target.value } });
+  };
+
+  // ハッシュタグ4の入力制限
+  const handleHashTag4Change = (e) => {
+    const HASHTAG_MAX_LENGTH = 20;
+    const { value } = e.target;
+
+    // 最大文字数を超えた場合は入力を制限
+    if (value.length > HASHTAG_MAX_LENGTH) {
+      e.target.value = value.slice(0, HASHTAG_MAX_LENGTH);
+    }
+
+    // フォームの状態を更新
+    dispatch({ type: 'UPDATE_FORM_VALUES', payload: { hashtag4: e.target.value } });
+  };
+
+
+  //ファイル名を更新するための関数
+  const updateFileName = (e, field) => {
+    const file = e.target.files[0];
+    dispatch({ type: 'UPDATE_FORM_VALUES', payload: { [field]: file } });
+  };
 
   return (
     <HelmetProvider>
@@ -65,21 +222,85 @@ const AddHandSign = (props) => {
                   className="registration-image1"
                 />
               </button>
-              <div className="registration-hambirger-menu">
-                <div className="registration-stacked">
+              <button id="open-btn" className="main-screen-hambirger-menu" type="button">
+                <div className="main-screen-stacked">
                   <img
                     src="/images/hambirger.svg"
                     alt="Ham"
-                    className="registration-menu"
+                    className="main-screen-menu"
                   />
-                  <span className="registration-text03">
+                  <span className="main-screen-text">
                     <span>メニュー</span>
                   </span>
                 </div>
+              </button>
+              <div id="sub-menu" className="sub-menu-sub-menu">
+                <div id="sub-menu-main">
+                  <div className="sub-menu-sub-menu1">
+                    <span className="sub-menu-text">
+                      <span>  サブメニュー</span>
+                    </span>
+                  </div>
+                </div>
+                <button id="close-btn" className="sub-menu-close-button" type="button" onClick={handleCloseBtnClick}>
+                  <img
+                    src="/images/closeIcon.svg"
+                    alt="close"
+                    className="sub-menu-close"
+                  />
+                </button>
+                <button className="sub-menu-profile" onClick={handleProfileBtnClick}>
+                  <div className="sub-menu-me">
+                    <img
+                      src="/images/profileIcon.svg"
+                      alt="profileIcon"
+                      className="sub-menu-union"
+                    />
+                  </div>
+                  <span className="sub-menu-text02">
+                    <span>プロフィール</span>
+                  </span>
+                </button>
+                <button className="sub-menu-hand-sign-list" onClick={handleHandsignBtnClick}>
+                  <div className="sub-menu-fillablecard">
+                    <img
+                      src="/images/handSignIcon.svg"
+                      alt="handSignIcon"
+                      className="sub-menu-union1"
+                    />
+                  </div>
+                  <span className="sub-menu-text04">
+                    <span>ハンドサインリスト</span>
+                  </span>
+                </button>
+                <button className="sub-menu-log-out" onClick={handleLogoutBtnClick}>
+                  <div className="sub-menu-update">
+                    <img
+                      src="/images/logOutIcon.svg"
+                      alt="logOutIcon"
+                      className="sub-menu-union2"
+                    />
+                  </div>
+                  <span className="sub-menu-text06">
+                    <span>ログアウト</span>
+                  </span>
+                </button>
+                <button className="sub-menu-sign-out" onClick={handleSignoutBtnClick}>
+                  <div className="sub-menu-departure">
+                    <img
+                      src="/images/signOutIcon.svg"
+                      alt="signOutIcon"
+                      className="sub-menu-union3"
+                    />
+                  </div>
+                  <span className="sub-menu-text08">
+                    <span>退会手続き</span>
+                  </span>
+                </button>
               </div>
             </div>
           </div>
-          <form onSubmit={handleSubmit} method="post" enctype="multipart/form-data" className="registration-main">
+          <div className="registration-main">
             <div className="registration-registration-title">
               <span className="registration-text05">
                 <span>ハンドサイン投稿</span>
@@ -101,7 +322,7 @@ const AddHandSign = (props) => {
                   type="text" 
                   name="handSignName"
                   value={formValues.handSignName}
-                  onChange={(e) => handleChange(e)}
+                  onChange={(e)=>handleChange(e)}
                   className="registration-input" 
                 />
               </div>
@@ -118,10 +339,28 @@ const AddHandSign = (props) => {
                 </div>
                 <div className="registration-support-text">
                   <span className="registration-text22">
-                    <span>ハンドサインの動画をアップロードしてください。</span>
+                    <span>ハンドサインを撮影してください。</span>
                   </span>
                 </div>
-                <input type="file" name="handSignVideo" value={formValues.handSignVideo} onChange={(e) => handleChange(e)} accept="video/*" className="registration-image-button" />
+                <button className="registration-image-button" onClick={() => navigate('/hand-sign-video')}>
+                  <span className='registration-image-button-text'>
+                    <span>撮影する</span>
+                  </span>
+                </button>
+                <div className="registration-support-text">
+                  <span className="registration-text22">
+                    <span>撮影したハンドサインをアップロードしてください。</span>
+                  </span>
+                </div>
+                <div className='sokuseki'>
+                  <label htmlFor="handSignVideo">ファイルを選択</label>
+                  <input 
+                    type="file" 
+                    id="handSignVideo" 
+                    onChange={(e) => { setVideo[e.target.files]; updateFileName(e, 'handSignVideo'); }} 
+                    accept=".npy" />
+                    <span className="select-image">{formValues.handSignVideo ? formValues.handSignVideo.name : '選択されていません'}</span>
+                </div>
               </div>
               <div className="registration-hand-sign-image">
                 <div className="registration-frame-input-label">
@@ -136,11 +375,31 @@ const AddHandSign = (props) => {
                 </div>
                 <div className="registration-support-text">
                   <span className="registration-text22">
-                    <span>ハンドサインを表す画像をアップロードしてください。</span>
+                    <span>ハンドサインを表わす画像を撮影してください。</span>
                   </span>
                 </div>
-                <input type="file" name="handSignImage" value={formValues.handSignImage} onChange={(e) => handleChange(e)} accept="image/*" className="registration-image-button" />
+                <button className="registration-image-button" onClick={() => navigate('/hand-sign-image')}>
+                  <span className='registration-image-button-text'>
+                    <span>撮影する</span>
+                  </span>
+                </button>
+                <div className="registration-support-text">
+                  <span className="registration-text22">
+                    <span>撮影した画像をアップロードしてください。</span>
+                  </span>
+                </div>
+                <div className='sokuseki'>
+                  <label htmlFor="handSignImage">ファイルを選択</label>
+                  <input 
+                  type="file"
+                  id="handSignImage" 
+                  onChange={(e) => { setImage[e.target.files]; updateFileName(e, 'handSignImage'); }} 
+                  accept="image/*" 
+                  />
+                  <span className="select-image">{formValues.handSignImage ? formValues.handSignImage.name : '選択されていません'}</span>
+                </div>
               </div>
+              <div id="preview"></div>
               <div className="registration-category">
                 <div className="registration-frame-input-label1">
                   <span className="registration-text11">
@@ -374,10 +633,16 @@ const AddHandSign = (props) => {
                 <span className="registration-frame-input-label2">
                     <span>詳細</span>
                 </span>
-                <textarea type="text" placeholder className="registration-input1" />
+                <textarea
+                  type="text"
+                  className="registration-input1"
+                  id="detailForm"
+                  value={formValues.detail}
+                  onChange={(e) => { handleDetailChange(e); handleChange(e); }}
+                />
                 <div className="registration-count">
                   <div className="registration-letter-counter">
-                    <span className="registration-text18">0</span>
+                    <span className="registration-text18" id="inputCounter">{formValues.detail.length}</span>
                     <span className="registration-text19">/</span>
                     <span className="registration-text20">
                       <span>150</span>
@@ -398,12 +663,12 @@ const AddHandSign = (props) => {
                   className="registration-input2" 
                   type="text"
                   name="hashTag1"
-                  value={formValues.hashTag1}
-                  onChange={(e) => handleChange(e)}
+                  value={formValues.hashtag1}
+                  onChange={(e) => { handleHashTag1Change(e); handleChange(e); }}
                 />
                 <div className="registration-count1">
                   <div className="registration-letter-counter1">
-                    <span className="registration-text24">0</span>
+                    <span className="registration-text24" id="inputCounter">{formValues.hashTag1.length}</span>
                     <span className="registration-text25">/</span>
                     <span className="registration-text26">
                       <span>20</span>
@@ -414,12 +679,12 @@ const AddHandSign = (props) => {
                   className="registration-input2" 
                   type="text"
                   name="hashTag2"
-                  value={formValues.hashTag2}
-                  onChange={(e) => handleChange(e)}
+                  value={formValues.hashtag2}
+                  onChange={(e) => { handleHashTag2Change(e); handleChange(e); }}
                 />
                 <div className="registration-count2">
                   <div className="registration-letter-counter2">
-                    <span className="registration-text28">0</span>
+                    <span className="registration-text24" id="inputCounter">{formValues.hashTag2.length}</span>
                     <span className="registration-text29">/</span>
                     <span className="registration-text30">
                       <span>20</span>
@@ -430,12 +695,12 @@ const AddHandSign = (props) => {
                   className="registration-input2" 
                   type="text"
                   name="hashTag3"
-                  value={formValues.hashTag3}
-                  onChange={(e) => handleChange(e)}
+                  value={formValues.hashtag3}
+                  onChange={(e) => { handleHashTag3Change(e); handleChange(e); }}
                 />
                 <div className="registration-count3">
                   <div className="registration-letter-counter3">
-                    <span className="registration-text32">0</span>
+                    <span className="registration-text24" id="inputCounter">{formValues.hashTag3.length}</span>
                     <span className="registration-text33">/</span>
                     <span className="registration-text34">
                       <span>20</span>
@@ -446,12 +711,12 @@ const AddHandSign = (props) => {
                   className="registration-input2" 
                   type="text"
                   name="hashTag4"
-                  value={formValues.hashTag4}
-                  onChange={(e) => handleChange(e)}
+                  value={formValues.hashtag4}
+                  onChange={(e) => { handleHashTag4Change(e); handleChange(e); }}
                 />
                 <div className="registration-count4">
                   <div className="registration-letter-counter4">
-                    <span className="registration-text36">0</span>
+                    <span className="registration-text24" id="inputCounter">{formValues.hashTag4.length}</span>
                     <span className="registration-text37">/</span>
                     <span className="registration-text38">
                       <span>20</span>
@@ -461,7 +726,7 @@ const AddHandSign = (props) => {
               </div>
             </div>
             <div className="registration-button-field">
-              <button className="registration-resist-button" type="submit" onClick={() => navigate('/internet-forum-popu')}>
+              <button className="registration-resist-button"  onClick={(e) => handleSubmit(e)}>
                 <span className="registration-text40">
                   <span>投稿する</span>
                 </span>
@@ -472,11 +737,12 @@ const AddHandSign = (props) => {
                 </span>
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </HelmetProvider>
   )
 }
+// () => navigate('/internet-forum-popu')
 
 export default AddHandSign

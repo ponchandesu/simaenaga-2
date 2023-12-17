@@ -6,6 +6,7 @@
   align-items: center;
   flex-direction: column;
 }
+
 .log-in-log-in {
   width: 100%;
   height: auto;
@@ -16,14 +17,16 @@
   flex-direction: column;
   background-color: rgba(255, 255, 255, 1);
 }
+
 .log-in-main {
-  gap: 64px;
+  gap: 8px;
   display: flex;
-  padding: 100px 0;
+  padding: 40px 0;
   align-self: stretch;
   align-items: flex-start;
   flex-direction: column;
 }
+
 .log-in-title {
   display: flex;
   align-self: stretch;
@@ -31,6 +34,7 @@
   flex-shrink: 0;
   justify-content: center;
 }
+
 .log-in-text {
   display: flex;
   padding: 0 0 0 75px;
@@ -38,11 +42,12 @@
   align-items: flex-start;
   flex-shrink: 0;
 }
+
 .log-in-text01 {
   color: rgba(0, 0, 0, 1);
   height: auto;
   flex-grow: 1;
-  font-size: 110px;
+  font-size: 80px;
   font-style: Bold;
   text-align: center;
   font-family: Noto Sans JP;
@@ -51,18 +56,22 @@
   font-stretch: normal;
   text-decoration: none;
 }
+
 .log-in-image2 {
-  width: 151px;
-  height: 158px;
+  width: 108px;
+  height: 108px;
+  padding-bottom: 20px;
 }
+
 .log-in-input-area {
-  gap: 32px;
+  gap: 44px;
   display: flex;
   padding: 0 160px;
   align-self: stretch;
   align-items: center;
   flex-direction: column;
 }
+
 .log-in-id {
   gap: 8px;
   display: flex;
@@ -70,13 +79,16 @@
   align-items: flex-start;
   flex-direction: column;
 }
+
 .log-in-frame-input-label {
-  gap: 8px;
+  width: auto;
+    height: auto;
   display: flex;
   align-self: stretch;
   align-items: center;
   flex-shrink: 0;
 }
+
 .log-in-text03 {
   color: rgba(0, 0, 0, 1);
   height: auto;
@@ -89,14 +101,18 @@
   font-stretch: normal;
   text-decoration: none;
 }
+
 .log-in-requirement {
-  width: 42px;
-  height: 30px;
+  width: 100%;
+  height: auto;
+  flex-wrap: wrap;
   display: flex;
   position: relative;
   align-items: flex-start;
   flex-shrink: 0;
+  z-index: 10;
 }
+
 .log-in-text05 {
   top: 3px;
   color: var(--dl-color-light_text-alert);
@@ -111,6 +127,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
+
 .log-in-support-text {
   gap: 8px;
   display: flex;
@@ -118,6 +135,7 @@
   align-items: center;
   flex-shrink: 0;
 }
+
 .log-in-text07 {
   color: var(--dl-color-light_text-description);
   height: auto;
@@ -131,6 +149,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
+
 .log-in-input {
   gap: 8px;
   display: flex;
@@ -144,6 +163,7 @@
   border-radius: 8px;
   background-color: var(--dl-color-light_background-primary);
 }
+
 .log-in-pass-word {
   gap: 8px;
   display: flex;
@@ -151,6 +171,7 @@
   align-items: flex-start;
   flex-direction: column;
 }
+
 .log-in-frame-input-label1 {
   gap: 8px;
   display: flex;
@@ -158,6 +179,7 @@
   align-items: center;
   flex-shrink: 0;
 }
+
 .log-in-text09 {
   color: rgba(0, 0, 0, 1);
   height: auto;
@@ -170,6 +192,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
+
 .log-in-requirement1 {
   width: 42px;
   height: 30px;
@@ -178,6 +201,7 @@
   align-items: flex-start;
   flex-shrink: 0;
 }
+
 .log-in-text11 {
   top: 3px;
   color: var(--dl-color-light_text-alert);
@@ -192,6 +216,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
+
 .log-in-support-text1 {
   gap: 8px;
   display: flex;
@@ -199,6 +224,7 @@
   align-items: center;
   flex-shrink: 0;
 }
+
 .log-in-text13 {
   color: var(--dl-color-light_text-description);
   height: auto;
@@ -212,6 +238,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
+
 .log-in-input1 {
   gap: 8px;
   display: flex;
@@ -225,14 +252,16 @@
   border-radius: 8px;
   background-color: var(--dl-color-light_background-primary);
 }
+
 .log-in-button-field {
   gap: 42px;
   display: flex;
-  padding: 0 240px;
+  padding: 0 300px;
   align-self: stretch;
   align-items: flex-start;
   flex-direction: column;
 }
+
 .log-in-resist-button {
   gap: 4px;
   display: flex;
@@ -247,11 +276,12 @@
   justify-content: center;
   background-color: var(--dl-color-primitivecolors_white-1000);
 }
+
 .log-in-text15 {
   color: rgba(0, 0, 0, 1);
   height: auto;
   flex-grow: 1;
-  font-size: 48px;
+  font-size: 40px;
   font-style: Bold;
   text-align: center;
   font-family: Noto Sans JP;
@@ -260,6 +290,7 @@
   font-stretch: normal;
   text-decoration: none;
 }
+
 .log-in-back-button {
   gap: 4px;
   display: flex;
@@ -271,11 +302,12 @@
   justify-content: center;
   background-color: rgba(218, 218, 218, 1);
 }
+
 .log-in-text17 {
   color: rgba(0, 0, 0, 1);
   height: auto;
   flex-grow: 1;
-  font-size: 48px;
+  font-size: 40px;
   font-style: Bold;
   text-align: center;
   font-family: Noto Sans JP;

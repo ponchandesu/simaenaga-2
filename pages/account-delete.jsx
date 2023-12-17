@@ -1,14 +1,14 @@
 import React, {useEffect , useState } from 'react'
 import { Helmet ,HelmetProvider} from 'react-helmet-async'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from "axios"
-import { server } from '../App';
-import './main-screen.css'
+import { server } from '../App'
+import './account-delete.css'
 
-const MainScreen = (props) => {
+const AccountDelete = (props) => {
   const navigate=useNavigate()
   useEffect(() => {
-    
+
     // オーバレイを開閉する関数
     const overlay = document.getElementById('sub-menu');
     function overlayToggle() {
@@ -16,7 +16,7 @@ const MainScreen = (props) => {
     }
 
     // 指定した要素に対して上記関数を実行するクリックイベントを設定
-    const clickArea = document.getElementsByClassName('main-screen-hambirger-menu-mine');
+    const clickArea = document.getElementsByClassName('main-screen-hambirger-menu');
     for (let i = 0; i < clickArea.length; i++) {
       clickArea[i].addEventListener('click', overlayToggle, false);
     }
@@ -62,24 +62,35 @@ const MainScreen = (props) => {
   const handleSignoutBtnClick = () => {
     navigate('/account-delete');
   }
-
   return (
     <HelmetProvider>
-      <div className="main-screen-container">
+      <div className="account-delete-container">
         <Helmet>
           <title>しまコネクト</title>
         </Helmet>
-        <div className="main-screen-main-screen">
-          <div className="main-screen-header">
-            <div className="main-screen-bar-text">
-              <button className="main-screen-logo" onClick={() => navigate('/main-screen')}>
+        <div className="account-delete-account-delete">
+          <div className="account-delete-header">
+            <div className="account-delete-bar-text">
+              <button className="account-delete-logo" onClick={() => navigate('/main-screen')}>
                 <img
                   src="/images/logo.png"
                   alt="Logo"
-                  className="main-screen-image"
+                  className="account-delete-image"
                 />
               </button>
-              <button id="open-btn" className="main-screen-hambirger-menu-mine" type="button">
+              <div className="account-delete-page-title">
+                <div className="account-delete-text">
+                  <span className="account-delete-text1">
+                    <span>退会手続き</span>
+                  </span>
+                </div>
+                <img
+                  src="/images/signOutIcon.svg"
+                  alt="signOutIcon"
+                  className="account-delete-union3"
+                />
+              </div>
+              <button id="open-btn" className="main-screen-hambirger-menu" type="button">
                 <div className="main-screen-stacked">
                   <img
                     src="/images/hambirger.svg"
@@ -157,35 +168,29 @@ const MainScreen = (props) => {
               </div>
             </div>
           </div>
-          <div className="main-screen-main">
-            <div className="main-screen-button">
-              <button className="main-screen-internet-forum-button" onClick={() => navigate('/internet-forum-popu')}>
-                <div className="main-screen-inside">
-                  <div className="main-screen-text2">
-                    <span className="main-screen-text3">
-                      <span>掲示板</span>
-                    </span>
-                  </div>
-                  <img
-                    src="/images/keijibanImage.png"
-                    alt="Keijiban"
-                    className="main-screen-image1"
-                  />
-                </div>
-              </button>
-              <button className="main-screen-tool-button">
-                <div className="main-screen-inside1">
-                  <div className="main-screen-text5">
-                    <span className="main-screen-text6">
-                      <span>お話しツール</span>
-                    </span>
-                  </div>
-                  <img
-                    src="/images/toolImage.png"
-                    alt="Tool"
-                    className="main-screen-image11"
-                  />
-                </div>
+          <div className="account-delete-main">
+            <img
+              src="/images/signOut.png"
+              alt="signOut"
+              className="account-delete-image2"
+            />
+            <div className="account-delete-text10">
+              <div className="account-delete-main-text">
+                <span className="account-delete-text11">
+                  <span>本当に退会しますか？</span>
+                </span>
+              </div>
+              <div className="account-delete-sub-text">
+                <span className="account-delete-text13">
+                  <span>アカウント含め、全てのデータが消えます。</span>
+                </span>
+              </div>
+            </div>
+            <div className="account-delete-button-field">
+              <button className="account-delete-log-in-button" onClick={() => navigate('/')}>
+                <span className="account-delete-text4">
+                  <span>退会する</span>
+                </span>
               </button>
             </div>
           </div>
@@ -195,4 +200,4 @@ const MainScreen = (props) => {
   )
 }
 
-export default MainScreen
+export default AccountDelete

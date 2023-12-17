@@ -17,9 +17,9 @@
   background-color: rgba(255, 255, 255, 1);
 }
 .start-scene-main {
-  gap: 64px;
+  gap: 8px;
   display: flex;
-  padding: 100px 0;
+  padding: 40px 0;
   align-self: stretch;
   align-items: center;
   flex-direction: column;
@@ -34,7 +34,7 @@
   color: rgba(0, 0, 0, 1);
   height: auto;
   flex-grow: 1;
-  font-size: 110px;
+  font-size: 88px;
   font-style: Bold;
   text-align: center;
   font-family: Noto Sans JP;
@@ -44,12 +44,13 @@
   text-decoration: none;
 }
 .start-scene-image1 {
-  width: 600px;
-  height: 511px;
+  width: 380px;
+  height: 330px;
+  padding-bottom: 8px;
 }
 .start-scene-button {
   display: flex;
-  padding: 0px 240px;
+  padding: 0px 300px;
   align-self: stretch;
   align-items: flex-start;
   flex-direction: column;
@@ -72,7 +73,7 @@
   color: rgba(0, 0, 0, 1);
   height: auto;
   flex-grow: 1;
-  font-size: 48px;
+  font-size: 40px;
   font-style: Bold;
   text-align: center;
   font-family: Noto Sans JP;
